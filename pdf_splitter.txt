@@ -1,0 +1,16 @@
+from PyPDF2 import PdfFileWriter as pW, PdfFileReader as pR # importing the classesc from PyPDF2 module
+
+file = "test.pdf" # selecting the file
+pdf = pR(open(file, "rb")) 
+
+nrpage = int(input("Splitted by: "))
+
+output = pW()
+for p in range(pdf.numPages):
+     output.addPage(pdf.getPage(p))
+     if output.getNumPages() == nrpage:
+       fname = '{}_p_{}.pdf'.format(file, p)
+       final = open(fname, "wb")
+       output.write(final)
+       output =pW()
+       print("Done", fname)
